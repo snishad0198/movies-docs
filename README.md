@@ -1,33 +1,33 @@
-# 📖 Movies.snishad — Complete Platform Architecture & Hosting Master Guide
+# 📖 Movies.snishad — Platform Architecture, Engineering & Hosting Master Guide
 
-Welcome to the official master documentation for **Movies.snishad**. This guide provides an end-to-end explanation of **how the platform was engineered (kaise bana hai)** and **how to deploy & host both backend and frontend anywhere (host kaise karna hai)**.
+Welcome to the official master documentation for **Movies.snishad**, a lightning-fast, production-ready, open-source movie and web series streaming platform featuring automated TMDB synchronization, multi-server streaming, direct cloud downloads, personal watchlist library, and an Apple HIG-inspired administration console.
 
-Engineered and maintained by **SNishad** ([@snishad.me_](https://instagram.com/snishad.me_)).
+Created and engineered by **SNishad** ([@snishad.me_](https://instagram.com/snishad.me_)).
 
 ---
 
 ## 🌐 Official Repositories
 
-| Component | Repository Link | Description |
-| :--- | :--- | :--- |
-| **🍿 Frontend Client** | [snishad0198/movies-frontend](https://github.com/snishad0198/movies-frontend) | Next.js 14 Cinema Streaming Client with Watchlist & Player |
-| **⚡ Backend API & Admin** | [snishad0198/movies-backend](https://github.com/snishad0198/movies-backend) | Next.js 14 REST API, Hourly TMDB Sync & Apple Admin Console |
-| **📖 Documentation Hub** | [snishad0198/movies-docs](https://github.com/snishad0198/movies-docs) | Complete Platform Architecture & Deployment Guide |
+| Component | Repository Link | Description | Primary Technology |
+| :--- | :--- | :--- | :--- |
+| **🍿 Frontend Client** | [snishad0198/movies-frontend](https://github.com/snishad0198/movies-frontend) | Modern Cinema Web Client with Watchlist & Player | Next.js 14, Tailwind CSS, Framer Motion |
+| **⚡ Backend API & Admin** | [snishad0198/movies-backend](https://github.com/snishad0198/movies-backend) | REST APIs, Hourly TMDB Sync & Apple Admin Console | Next.js 14, Prisma ORM, MySQL |
+| **📖 Documentation Hub** | [snishad0198/movies-docs](https://github.com/snishad0198/movies-docs) | Complete Platform Architecture & Hosting Master Guide | Pure Markdown Documentation |
 
 ---
 
 ## 🔴 Live Demos & Default Credentials
 
-* **Frontend Streaming Web Demo:** [https://movies-snishad.vercel.app](https://movies-snishad.vercel.app) *(or your deployed Vercel URL)*
+* **Frontend Cinema Streaming Web Demo:** [https://movies-snishad.vercel.app](https://movies-snishad.vercel.app) *(or your deployed Vercel domain)*
 * **Backend Admin Console Demo:** `https://your-backend-api.com/admin/login` *(or `http://localhost:3000/admin/login` locally)*
-  * **Email:** `admin@moviessnishad.com`
-  * **Password:** `Admin@123456`
+  * **Admin Email:** `admin@moviessnishad.com`
+  * **Admin Password:** `Admin@123456`
 
 ---
 
-## 🏗️ 1. Platform Architecture — Ye Kaise Bana Hai?
+## 🏗️ 1. Platform Architecture — How It Was Built
 
-Movies.snishad ko ek modern, decoupled full-stack architecture par banaya gaya hai jisse ye ultra-fast, secure aur easy-to-scale rahe:
+Movies.snishad is engineered with a modern, decoupled full-stack architecture to ensure sub-millisecond responsiveness, zero-overhead video playback, enterprise security, and effortless horizontal scalability:
 
 ```text
                +-------------------------------------------+
@@ -38,10 +38,10 @@ Movies.snishad ko ek modern, decoupled full-stack architecture par banaya gaya h
                +-------------------------------------------+
                |  🍿 FRONTEND CLIENT (Next.js 14 App Router)|
                |  - Ultra-fast global edge caching (Vercel)|
-               |  - Cinema Video Player without overlays   |
-               |  - Personal Watchlist / Bookmark Library  |
-               |  - Framer Motion animations & dark UI     |
-               |  - Shortcuts (/ or Ctrl+K instant search) |
+               |  - Clean Cinema Player with zero overlays |
+               |  - Optimistic Watchlist / Bookmark Library|
+               |  - Framer Motion micro-interactions & UI  |
+               |  - Instant Search Shortcuts (/ or Ctrl+K) |
                +-------------------------------------------+
                                      |
                           REST API Requests & Proxy
@@ -49,9 +49,9 @@ Movies.snishad ko ek modern, decoupled full-stack architecture par banaya gaya h
                                      v
                +-------------------------------------------+
                |  ⚡ BACKEND SERVER (Next.js 14 + Prisma)  |
-               |  - REST API Routes (/api/movies, trending)|
-               |  - Apple HIG-inspired Admin Console       |
-               |  - Multi-server streaming resolver        |
+               |  - REST API Endpoints (/api/movies, etc.) |
+               |  - Apple HIG-inspired Admin Control Center|
+               |  - Multi-server streaming node resolver   |
                |  - Direct Cloud 1080p/720p/480p proxy     |
                +-------------------------------------------+
                       /                              \
@@ -64,28 +64,38 @@ Movies.snishad ko ek modern, decoupled full-stack architecture par banaya gaya h
      +-------------------------------+   +-----------------------------+
 ```
 
-### Key Technical Decisions:
-1. **Separation of Concerns:** Frontend aur Backend ko alag-alag repositories me rakha gaya hai taaki Frontend ko Vercel ke free global edge CDN par deploy kiya ja sake aur Backend ko kisi bhi cloud VPS ya Docker par run kiya ja sake.
-2. **Zero-Exposure TMDB Security:** TMDB API keys ko GitHub ya `.env` me expose karne ke bajaye, admin panel `/admin/settings` se direct private database me store kiya jaata hai jaha real-time connection test button bhi diya gaya hai.
-3. **Hourly Auto-Sync Engine:** Backend me ek in-memory caching layer banayi gayi hai jo har 1 ghante me TMDB ke trending API se latest box office releases auto-refresh karti hai.
-4. **Optimistic Local Storage Watchlist:** Users bina kisi slow database authentication ke turant movies/series ko bookmark kar sakte hain jo `localStorage` me sync rehta hai aur Navbar me live count badge dikhata hai.
-5. **No Overhead Video Player:** Player ke upar se saare irritating overlays aur laggy elements hata diye gaye hain taaki sub-millisecond playback start ho.
+### Key Engineering Decisions:
+
+1. **Decoupled Architecture (Micro-Frontend / Headless API):**
+   * The Frontend and Backend are decoupled into separate repositories. This allows the Frontend to be distributed globally across Vercel's Edge CDN with zero server management, while the Backend runs on any standard VPS, Docker container, or cloud provider.
+
+2. **Zero-Exposure TMDB Vault:**
+   * Instead of committing sensitive API keys into code or public environment files, TMDB credentials are configured directly inside the database via the `/admin/settings` panel with a built-in real-time connection test button. Keys are never exposed to GitHub.
+
+3. **Hourly Automated In-Memory Cache Engine:**
+   * An intelligent in-memory caching layer was built into the backend. It automatically refreshes trending box office movies and series from TMDB every single hour with sub-5ms lookup latency, avoiding unnecessary external API rate limits.
+
+4. **Optimistic Watchlist Library:**
+   * Users can bookmark their favorite movies and series with 1 click. State is synchronized in `localStorage` with real-time browser events (`watchlist-updated`), instantly reflecting saved counts in both desktop and mobile navigation bars without requiring slow database round-trips.
+
+5. **Lag-Free Cinema Player:**
+   * Annoying overlays, fake pause buttons, and heavy tracking scripts have been eliminated. The player offers instant theater mode, seamless multi-server node switching, and direct high-speed download link proxying.
 
 ---
 
-## 🚀 2. Complete Hosting Guide — Isko Host Kaise Karna Hai?
+## 🚀 2. Complete Hosting Guide — How to Host Both Repositories
 
-Platform ko host karna bahot aasan hai. Niche diye gaye 2 steps follow karein:
+Deploying the entire platform is straightforward. Follow the two phases below:
 
 ---
 
-### Step 1: Backend API & Admin Console Host Karein
+### Phase 1: Deploying the Backend API & Admin Console
 
-Backend ko aap **Ubuntu VPS**, **Railway**, **Render**, ya **Docker** par host kar sakte hain.
+You can host the backend on an **Ubuntu VPS**, **Railway**, **Render**, or using **Docker**.
 
-#### Method A: Ubuntu VPS / Cloud Server (PM2 + Nginx) — Recommended for VPS
+#### Option A: Ubuntu VPS (PM2 + Nginx + Free SSL) — Recommended for Production
 
-1. **VPS me Node.js & MySQL install karein:**
+1. **Install Node.js 20 LTS, Nginx, and MySQL Server:**
    ```bash
    sudo apt update && sudo apt upgrade -y
    sudo apt install -y curl git nginx mysql-server
@@ -94,36 +104,43 @@ Backend ko aap **Ubuntu VPS**, **Railway**, **Render**, ya **Docker** par host k
    sudo npm install -g pm2
    ```
 
-2. **Backend repository clone karein:**
+2. **Clone the Backend Repository:**
    ```bash
    git clone https://github.com/snishad0198/movies-backend.git /var/www/movies-backend
    cd /var/www/movies-backend
    npm install
    ```
 
-3. **`.env` file banayein:**
+3. **Configure Environment Variables (`.env`):**
    ```bash
    cp .env.example .env
    nano .env
    ```
-   Apni details fill karein:
+   Fill in your production variables:
    ```env
+   # MySQL Database Connection URL
    DATABASE_URL="mysql://root:YourPassword@localhost:3306/movies_snishad"
+
+   # Secret Tokens (minimum 32 characters)
    JWT_SECRET="movies-snishad-super-secret-jwt-key-min-32-chars-2026"
    INTERNAL_API_KEY="movies-snishad-secure-internal-token-2026"
+
+   # Allowed Frontend Origins (CORS Security)
    ALLOWED_FRONTEND_ORIGINS="https://your-frontend-domain.vercel.app,http://localhost:3000"
    NEXT_PUBLIC_SITE_URL="https://api.yourdomain.com"
+
+   # Initial Admin Credentials
    ADMIN_EMAIL="admin@moviessnishad.com"
    ADMIN_PASSWORD="Admin@123456"
    ```
 
-4. **Database schema push aur seed karein:**
+4. **Initialize Database Schema & Seeds:**
    ```bash
    npx prisma db push
    npx prisma db seed
    ```
 
-5. **Production build banakar PM2 se start karein:**
+5. **Build and Launch with PM2 Process Manager:**
    ```bash
    npm run build
    pm2 start npm --name "movies-backend" -- run start -p 3000
@@ -131,14 +148,15 @@ Backend ko aap **Ubuntu VPS**, **Railway**, **Render**, ya **Docker** par host k
    pm2 startup
    ```
 
-6. **Nginx Reverse Proxy & Free SSL (Let's Encrypt):**
+6. **Configure Nginx Reverse Proxy & SSL (Certbot):**
    ```bash
    sudo nano /etc/nginx/sites-available/movies-backend
    ```
-   Paste karein:
+   Paste the following configuration:
    ```nginx
    server {
        server_name api.yourdomain.com;
+
        location / {
            proxy_pass http://localhost:3000;
            proxy_http_version 1.1;
@@ -151,7 +169,7 @@ Backend ko aap **Ubuntu VPS**, **Railway**, **Render**, ya **Docker** par host k
        }
    }
    ```
-   Enable karein aur SSL lagayein:
+   Enable the configuration and obtain a free Let's Encrypt SSL certificate:
    ```bash
    sudo ln -s /etc/nginx/sites-available/movies-backend /etc/nginx/sites-enabled/
    sudo nginx -t && sudo systemctl reload nginx
@@ -161,28 +179,28 @@ Backend ko aap **Ubuntu VPS**, **Railway**, **Render**, ya **Docker** par host k
 
 ---
 
-#### Method B: Railway / Render (Zero Server Management)
-1. [Railway.app](https://railway.app) ya [Render.com](https://render.com) par free account banayein.
-2. New **MySQL Database** create karein aur uska `DATABASE_URL` copy karein.
-3. New **Web Service** create karein aur repository `snishad0198/movies-backend` connect karein.
-4. Environment variables me `DATABASE_URL`, `JWT_SECRET`, aur `INTERNAL_API_KEY` add karein.
-5. Build command: `npm run build`
-6. Start command: `npx prisma db push && npm run start -p 3000`
-7. Deploy ho jaane par aapko ek backend URL mil jayega (jaise `https://movies-backend.up.railway.app`).
+#### Option B: Cloud Serverless (Railway / Render / Docker)
+1. Sign up on [Railway.app](https://railway.app) or [Render.com](https://render.com).
+2. Create a new **MySQL Database** and copy the `DATABASE_URL`.
+3. Create a new **Web Service** connected to repository `snishad0198/movies-backend`.
+4. Enter your environment variables (`DATABASE_URL`, `JWT_SECRET`, `INTERNAL_API_KEY`, etc.).
+5. Set Build Command: `npm run build`
+6. Set Start Command: `npx prisma db push && npm run start -p 3000`
+7. Once deployed, copy your live backend URL (e.g. `https://movies-backend.up.railway.app`).
 
 ---
 
-### Step 2: Frontend Web Client Host Karein (Vercel — 60 Seconds)
+### Phase 2: Deploying the Frontend Web Client (Vercel — 60 Seconds)
 
-Frontend ko Vercel par host karna 100% free hai aur sabse fast load hota hai:
+Deploying the frontend on Vercel is completely free and provides global CDN acceleration:
 
-1. [Vercel.com](https://vercel.com) par login karein.
+1. Log in to [Vercel](https://vercel.com).
 2. Click **"Add New"** ➔ **"Project"**.
-3. Repository **`snishad0198/movies-frontend`** select karein.
-4. Project Settings me:
+3. Select repository **`snishad0198/movies-frontend`**.
+4. On the configuration screen:
    * **Framework Preset:** `Next.js`
    * **Root Directory:** `./`
-5. **Environment Variables** add karein:
+5. Add the following **Environment Variables**:
    ```env
    NEXT_PUBLIC_SITE_NAME="Movies.snishad"
    NEXT_PUBLIC_SITE_URL="https://your-frontend-domain.vercel.app"
@@ -190,53 +208,54 @@ Frontend ko Vercel par host karna 100% free hai aur sabse fast load hota hai:
    BACKEND_INTERNAL_URL="https://api.yourdomain.com"
    INTERNAL_API_KEY="movies-snishad-secure-internal-token-2026"
    ```
-   *(Note: `NEXT_PUBLIC_BACKEND_URL` me apne Step 1 wale backend ka live URL dalein!)*
+   *(Note: Set `NEXT_PUBLIC_BACKEND_URL` to your live backend domain from Phase 1!)*
 6. Click **"Deploy"**!  
-   60 seconds ke andar aapka video streaming web application poori duniya me live ho jayega!
+   In less than 60 seconds, your cinema streaming web application will be live globally!
 
 ---
 
-## 🔑 3. TMDB API Key Kaise Configure Karein? (1 Minute)
+## 🔑 3. Setting Up Your Free TMDB API Key (1 Minute)
 
-1. [themoviedb.org](https://www.themoviedb.org/) par free account banayein.
-2. **Settings** ➔ **API** me jakar **Developer API Key** generate karein.
-3. Apne backend ke admin panel me login karein: `https://api.yourdomain.com/admin/login`
+1. Register for a free account at [themoviedb.org](https://www.themoviedb.org/).
+2. Navigate to **Settings** ➔ **API** and request a free Developer API key.
+3. Log in to your backend admin panel: `https://api.yourdomain.com/admin/login`
    * **Email:** `admin@moviessnishad.com`
    * **Password:** `Admin@123456`
-4. Left menu se **Settings** ➔ **"TMDB API & Sync"** tab open karein.
-5. Apni TMDB API Key paste karein aur **"Test Connection"** click karein.
-6. **"Save Settings"** par click karein. Ab aapke platform par trending movies, series, posters aur details dynamically fetch hona shuru ho jayengi!
+4. From the sidebar, open **Settings** ➔ **"TMDB API & Sync"** tab.
+5. Paste your TMDB API Key and click **"Test Connection"**.
+6. Click **"Save Settings"**.  
+   *Your platform will immediately begin streaming live posters, trending cinema, and box office details!*
 
 ---
 
 ## ⚖️ 4. Usage Policy & Commercial Terms
 
 ### 🟢 Personal & Educational Use (100% Free)
-* Aap is project ko study karne, seekhne, college project, ya apne personal ghar ke use ke liye bilkul free me use kar sakte hain.
-* Code ko modify karna aur customize karna completely allowed hai.
+* You are completely free to clone, study, customize, and self-host this platform for personal entertainment or academic learning.
+* Full code customization and local development are fully permitted.
 
 ### 🔴 Commercial Use & Business Monetization (Contact Required)
-* Agar aap is website par **Ads lagana chahte hain (Google AdSense, Popups, etc.)**, **users se payment/subscription lena chahte hain**, ya isko **kisi client ko bechna chahte hain**, toh iske liye commercial license lena anivarya hai.
-* Author ki permission ke bina commercial monetization strictly prohibited hai.
+* If you plan to **run advertisements (Google AdSense, Popups, etc.)**, **charge users subscriptions or paywalls**, or **resell this platform to clients**, you are **strictly required to obtain a commercial license**.
+* Commercial deployment without written authorization from the copyright holder is strictly prohibited.
 
-### Commercial License Kaise Lein:
-Directly contact karein:
+### How to Request a Commercial License:
+Contact **SNishad** directly:
 * **Instagram:** [@snishad.me_](https://instagram.com/snishad.me_)
 * **Email:** `snishad01985@gmail.com`
 
 ---
 
-## 💬 Creator, Bug Reports & Freelance Work
+## 💬 Creator, Bug Reports & Freelance Inquiries
 
-* **Creator:** **SNishad**
+* **Created By:** **SNishad**
 * **Instagram:** [@snishad.me_](https://instagram.com/snishad.me_)
 * **Email:** `snishad01985@gmail.com`
 
-> **Koi bug mila?**  
-> Direct Instagram [@snishad.me_](https://instagram.com/snishad.me_) par message karein, hum turant patch release karenge!
+> **Found a bug or issue?**  
+> Send a message directly on Instagram ([@snishad.me_](https://instagram.com/snishad.me_)). Your bug reports help make this platform better for everyone!
 
-> **Apna website ya web app banwana chahte hain affordable price me?**  
-> Instagram ya email par contact karein. High-performance streaming sites, e-commerce, aur modern web applications ready karke diye jaate hain.
+> **Want a custom website or streaming app built at an affordable price?**  
+> Reach out on Instagram or email. Custom streaming platforms, modern dashboards, e-commerce stores, and high-performance APIs built with cutting-edge UI/UX.
 
 ---
 
