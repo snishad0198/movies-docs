@@ -192,6 +192,8 @@ You can host the backend on an **Ubuntu VPS**, **Railway**, **Render**, or using
 
 ### Phase 2: Deploying the Frontend Web Client (Vercel — 60 Seconds)
 
+👉 **[Deploy to Vercel in 1-Click](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsnishad0198%2Fmovies-frontend&env=NEXT_PUBLIC_SITE_NAME,NEXT_PUBLIC_SITE_URL,NEXT_PUBLIC_BACKEND_URL,BACKEND_INTERNAL_URL,INTERNAL_API_KEY)**
+
 Deploying the frontend on Vercel is completely free and provides global CDN acceleration:
 
 1. Log in to [Vercel](https://vercel.com).
